@@ -72,6 +72,8 @@ def dailyUsage(dailyfile, minutefile, unmatched):
     for row in dailystats:
       if 'omitted' in row[1]:
         continue
+      elif '(total time)' in row[1]:
+        continue
       elif 'unmatched' in row[1]:
         tag = unmatched
       else:
@@ -107,7 +109,9 @@ def dailyUsage(dailyfile, minutefile, unmatched):
     for row in content:
       day, value = row.split(' ', 1)
       time, inctag, _, _ = value.split(',')
-      if 'unmatched' in inctag:
+      if '(total time)' in inctag:
+        continue
+      elif 'unmatched' in inctag:
         tag = unmatched
       else:
         tag = inctag.split(':')[1]
