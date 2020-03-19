@@ -84,12 +84,19 @@
           var g = svg.selectAll("e")
                      .data(minute)
                      .enter().append("g");
-          g.append("rect")
+          var rect = g.append("rect")
            .attr("x", function(d) { return x(d); })
            .attr("width", W/1440)
            .attr("y", 0)
            .attr("height", 30)
            .attr("fill", col);
+
+          rect.append('title')
+          .text(function(d) {
+            var minutes = d % 60;
+            var hours = (d - minutes) / 60;
+            return `${hours}:${minutes}`;
+          });
         }
         var t = 0;
         while(t < 1440) {
